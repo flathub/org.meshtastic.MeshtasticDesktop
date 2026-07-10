@@ -46,13 +46,13 @@ modules:
   - name: meshtastic-desktop
     buildsystem: simple
     build-options:
-      append-path: "/usr/lib/sdk/openjdk21/bin"
+      append-path: /usr/lib/sdk/openjdk21/bin
       env:
         JAVA_HOME: /usr/lib/sdk/openjdk21/jvm/openjdk-21
         # Disable Gradle's auto-download and auto-detect of Java installations
-        ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-detect: "false"
-        ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-download: "false"
-        ORG_GRADLE_PROJECT_org.gradle.java.installations.paths: "/usr/lib/sdk/openjdk21/jvm/openjdk-21,/usr/lib/sdk/openjdk17/jvm/openjdk-17"
+        ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-detect: 'false'
+        ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-download: 'false'
+        ORG_GRADLE_PROJECT_org.gradle.java.installations.paths: /usr/lib/sdk/openjdk21/jvm/openjdk-21,/usr/lib/sdk/openjdk17/jvm/openjdk-17
     build-commands:
       - install -Dm755 meshtastic-wrapper.sh /app/bin/meshtastic-wrapper.sh
       # Install desktop metadata
@@ -64,11 +64,13 @@ modules:
       # Fixed in v2.8.0 (remove during upgrade).
       - desktop-file-edit --set-key="Icon" --set-value="org.meshtastic.MeshtasticDesktop"
         /app/share/applications/org.meshtastic.MeshtasticDesktop.desktop
-      - install -Dm644 desktopApp/packaging/linux/org.meshtastic.desktop.metainfo.xml /app/share/metainfo/org.meshtastic.MeshtasticDesktop.metainfo.xml
+      - install -Dm644 desktopApp/packaging/linux/org.meshtastic.desktop.metainfo.xml
+        /app/share/metainfo/org.meshtastic.MeshtasticDesktop.metainfo.xml
       # Build!
       - ./gradlew --offline :desktopApp:packageUberJarForCurrentOS
       - >
-        JAR_FILE=$(find desktopApp/build/compose/jars/ -name "*.jar" -type f | head -1)
+        JAR_FILE=$(find desktopApp/build/compose/jars/ -name "*.jar" -type f | head
+        -1)
         && install -Dm755 "$JAR_FILE" /app/lib/meshtastic-desktop.jar
     sources:
       - type: git
@@ -83,10 +85,10 @@ modules:
           tag-query: .tag_name
           version-query: $tag | sub("^v"; "")
       - type: file
-        url: https://services.gradle.org/distributions/gradle-9.5.1-all.zip
-        sha256: c72fb9991f6025cbe337d52ba77e531b3faf62bdd3e348fe1ccee9f51c71adb0
-        dest: "gradle/wrapper"
-        dest-filename: "gradle-all.zip"
+        url: https://services.gradle.org/distributions/gradle-9.6.1-bin.zip
+        sha256: 9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14
+        dest: gradle/wrapper
+        dest-filename: gradle-all.zip
         x-checker-data:
           type: json
           url: https://services.gradle.org/versions/current
@@ -95,7 +97,7 @@ modules:
           url-query: .downloadUrl
       - type: file
         path: gradle-wrapper.properties
-        dest: "gradle/wrapper"
+        dest: gradle/wrapper
       - flatpak-sources.json
       - type: file
         path: meshtastic-wrapper.sh
