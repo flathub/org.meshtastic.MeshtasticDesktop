@@ -33,13 +33,13 @@ modules:
       - tar xzf jbr-*.tar.gz -C /app/jre --strip-components=1
     sources:
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-21.0.11-linux-x64-b1163.116.tar.gz
-        sha256: 72bf2d1830587a3cd31b718d4af9fc7a88fc6c3740642d842b3b378d4acbe476
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-x64-b508.16.tar.gz
+        sha256: 4c7a3f87cb97288d8ce7587ae803e09573d48cfbd87db45bf01bb833b26e0e1e
         only-arches:
           - x86_64
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-21.0.11-linux-aarch64-b1163.116.tar.gz
-        sha256: 02124d01591c173f9a51ef84d99ce248900d4d1e1aa52a38c65f4708f66b6e98
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-aarch64-b508.16.tar.gz
+        sha256: 8704ffff0723bbe00992a02e455cda6a76697b40f9a5b833fc853e3c3b05dd14
         only-arches:
           - aarch64
 
