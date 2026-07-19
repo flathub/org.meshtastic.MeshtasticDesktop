@@ -1,12 +1,20 @@
 diff --git a/desktopApp/build.gradle.kts b/desktopApp/build.gradle.kts
-index d684fafae..dea96d20c 100644
+index beef2ddfe..fef233c23 100644
 --- a/desktopApp/build.gradle.kts
 +++ b/desktopApp/build.gradle.kts
 @@ -94,7 +94,6 @@ sourceSets.main { kotlin.srcDir(generateBuildConfig.map { buildConfigOutputDir }
  kotlin {
      jvmToolchain {
-         languageVersion.set(JavaLanguageVersion.of(21))
+         languageVersion.set(JavaLanguageVersion.of(25))
 -        vendor.set(JvmVendorSpec.JETBRAINS)
      }
      compilerOptions {
-         jvmTarget.set(JvmTarget.JVM_21)
+         jvmTarget.set(JvmTarget.JVM_25)
+@@ -119,7 +118,6 @@ compose.desktop {
+             javaToolchains
+                 .launcherFor {
+                     languageVersion.set(JavaLanguageVersion.of(25))
+-                    vendor.set(JvmVendorSpec.JETBRAINS)
+                 }
+                 .get()
+                 .metadata
