@@ -3,10 +3,7 @@ runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
-  # OpenJDK 17 is required at build time by the Meshtastic 'ATAK' module.
-  # This requirement is removed in v2.8.0 (JDK 21 only).
-  - org.freedesktop.Sdk.Extension.openjdk17
-  - org.freedesktop.Sdk.Extension.openjdk21
+  - org.freedesktop.Sdk.Extension.openjdk25
 command: meshtastic-wrapper.sh
 
 finish-args:
@@ -34,37 +31,33 @@ modules:
     sources:
       - type: file
         url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-x64-b508.16.tar.gz
-        sha256: 4c7a3f87cb97288d8ce7587ae803e09573d48cfbd87db45bf01bb833b26e0e1e
+        sha512: f936d2a4048485d3cb552c26f69b41f13eba0f75de1178c9ff6185547755c336d0ef5af9641f004e916d0d0414e34d1e9f9d12c08d262038cbca517dcad0dc96
         only-arches:
           - x86_64
       - type: file
         url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-aarch64-b508.16.tar.gz
-        sha256: 8704ffff0723bbe00992a02e455cda6a76697b40f9a5b833fc853e3c3b05dd14
+        sha512: 038cce6e7e2d68a28c1b269aff199c2e8a4bca58e24d27f9345fbb6031d6b6dc82d79d524586f3e96952d0272d2ca02fa84817df69b4f6052e9f2c5d34c02bad
         only-arches:
           - aarch64
 
   - name: meshtastic-desktop
     buildsystem: simple
     build-options:
-      append-path: "/usr/lib/sdk/openjdk21/bin"
+      append-path: "/usr/lib/sdk/openjdk25/bin"
       env:
-        JAVA_HOME: /usr/lib/sdk/openjdk21/jvm/openjdk-21
+        JAVA_HOME: /usr/lib/sdk/openjdk25/jvm/openjdk-25
         # Disable Gradle's auto-download and auto-detect of Java installations
         ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-detect: "false"
         ORG_GRADLE_PROJECT_org.gradle.java.installations.auto-download: "false"
-        ORG_GRADLE_PROJECT_org.gradle.java.installations.paths: "/usr/lib/sdk/openjdk21/jvm/openjdk-21,/usr/lib/sdk/openjdk17/jvm/openjdk-17"
+        ORG_GRADLE_PROJECT_org.gradle.java.installations.paths: "/usr/lib/sdk/openjdk25/jvm/openjdk-25"
     build-commands:
       - install -Dm755 meshtastic-wrapper.sh /app/bin/meshtastic-wrapper.sh
       # Install desktop metadata
       - install -Dm644 desktopApp/packaging/icons/icon_round.svg /app/share/icons/hicolor/scalable/apps/org.meshtastic.MeshtasticDesktop.svg
-      - install -Dm644 desktopApp/packaging/linux/org.meshtastic.desktop.desktop /app/share/applications/org.meshtastic.MeshtasticDesktop.desktop
+      - install -Dm644 -t /app/share/applications desktopApp/packaging/linux/org.meshtastic.MeshtasticDesktop.desktop
       - desktop-file-edit --set-key="Exec" --set-value="meshtastic-wrapper.sh %U"
         /app/share/applications/org.meshtastic.MeshtasticDesktop.desktop
-      # Rename the icon from "org.meshtastic.desktop" to "org.meshtastic.MeshtasticDesktop".
-      # Fixed in v2.8.0 (remove during upgrade).
-      - desktop-file-edit --set-key="Icon" --set-value="org.meshtastic.MeshtasticDesktop"
-        /app/share/applications/org.meshtastic.MeshtasticDesktop.desktop
-      - install -Dm644 desktopApp/packaging/linux/org.meshtastic.desktop.metainfo.xml /app/share/metainfo/org.meshtastic.MeshtasticDesktop.metainfo.xml
+      - install -Dm644 -t /app/share/metainfo desktopApp/packaging/linux/org.meshtastic.MeshtasticDesktop.metainfo.xml
       # Build!
       - ./gradlew --offline :desktopApp:packageUberJarForCurrentOS
       - >
@@ -73,8 +66,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meshtastic/Meshtastic-Android.git
-        tag: v2.7.14
-        commit: cf68c86af556cfd44d83064a1a03df6f63707014
+        tag: v2.8.0
+        commit: 5a3b555b99612d8d34cb89c57bcf9aa54d9b84c9
         x-checker-data:
           is-main-source: true
           type: json
@@ -83,8 +76,8 @@ modules:
           tag-query: .tag_name
           version-query: $tag | sub("^v"; "")
       - type: file
-        url: https://services.gradle.org/distributions/gradle-9.5.1-all.zip
-        sha256: c72fb9991f6025cbe337d52ba77e531b3faf62bdd3e348fe1ccee9f51c71adb0
+        url: https://services.gradle.org/distributions/gradle-9.6.1-all.zip
+        sha256: 61ba77b3ff7167e60962763eb4bae79db7120c189b9544358d0ade3c1e712a83
         dest: "gradle/wrapper"
         dest-filename: "gradle-all.zip"
         x-checker-data:
@@ -104,7 +97,3 @@ modules:
           # Remove the toolchainVendor=JETBRAINS line in the Gradle daemon JVM properties
           # as it causes Gradle to fail when building with OpenJDK
           - patches/gradle-remove_JvmVendorSpec.patch
-          # Patch the metainfo.xml file for now.
-          # The file in-repo uses ID 'org.meshtastic.desktop' and is incomplete (missing screenshots).
-          # Fixed in v2.8.0 (remove during upgrade).
-          - patches/metainfo-rename_MeshtasticDesktop.patch
