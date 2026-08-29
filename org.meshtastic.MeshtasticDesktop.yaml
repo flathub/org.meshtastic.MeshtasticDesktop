@@ -27,16 +27,16 @@ modules:
     buildsystem: simple
     build-commands:
       - mkdir -p /app/jre
-      - tar xzf jbr-*.tar.gz -C /app/jre --strip-components=1
+      - tar xzf jbr_jcef-*.tar.gz -C /app/jre --strip-components=1
     sources:
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-x64-b508.16.tar.gz
-        sha512: f936d2a4048485d3cb552c26f69b41f13eba0f75de1178c9ff6185547755c336d0ef5af9641f004e916d0d0414e34d1e9f9d12c08d262038cbca517dcad0dc96
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b583.48.tar.gz
+        sha512: d56810129fee7b33e3bc34191823f2506f4908f6bbaf877fa7b3d8a7e0d0fd2fc275a9d1cdc1727575d0a2c821b522601355fe5bac9a967abfab794fa07e9033
         only-arches:
           - x86_64
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr-25.0.3-linux-aarch64-b508.16.tar.gz
-        sha512: 038cce6e7e2d68a28c1b269aff199c2e8a4bca58e24d27f9345fbb6031d6b6dc82d79d524586f3e96952d0272d2ca02fa84817df69b4f6052e9f2c5d34c02bad
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b583.48.tar.gz
+        sha512: 13841efbae2a308cff028db229282f69fb5e94c2b0e7c5bc18f5d958f2fa8d85b4d6547609251d9c8008105035aa5c842455fbe4c7945576757b7e71f6be43c8
         only-arches:
           - aarch64
 
