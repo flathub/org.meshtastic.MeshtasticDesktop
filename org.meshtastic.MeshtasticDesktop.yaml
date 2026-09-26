@@ -30,13 +30,13 @@ modules:
       - tar xzf jbr_jcef-*.tar.gz -C /app/jre --strip-components=1
     sources:
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b583.48.tar.gz
-        sha512: d56810129fee7b33e3bc34191823f2506f4908f6bbaf877fa7b3d8a7e0d0fd2fc275a9d1cdc1727575d0a2c821b522601355fe5bac9a967abfab794fa07e9033
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b610.67.tar.gz
+        sha512: 4680c1d459208f4017feff141be3d710733bd1225b6f61bc628937141857f00f92734aaea7567effae920c811243de03cfb91acd9b6fc4811897d892ae21fdad
         only-arches:
           - x86_64
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b583.48.tar.gz
-        sha512: 13841efbae2a308cff028db229282f69fb5e94c2b0e7c5bc18f5d958f2fa8d85b4d6547609251d9c8008105035aa5c842455fbe4c7945576757b7e71f6be43c8
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b610.67.tar.gz
+        sha512: d3d8fb6827906393d73ec06fc29a2e4710ac79576849ee12a7c40429249e1cb6cebae219197947e297b01179c0576ab7e6e09f0578c4ba66558a6cbdb44dd2b2
         only-arches:
           - aarch64
 
@@ -67,8 +67,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meshtastic/Meshtastic-Android.git
-        tag: v2.8.1
-        commit: 7c6a6cc195a2248cd50ed7f2395451cabcd93fdc
+        tag: v2.8.2
+        commit: 616592901c0595c1cd1a0184a07e63743c846e55
         x-checker-data:
           is-main-source: true
           type: json
@@ -77,8 +77,8 @@ modules:
           tag-query: .tag_name
           version-query: $tag | sub("^v"; "")
       - type: file
-        url: https://services.gradle.org/distributions/gradle-9.6.1-bin.zip
-        sha256: 9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14
+        url: https://services.gradle.org/distributions/gradle-9.8.0-bin.zip
+        sha256: bafd5ce9cfaea0fbccfdc8439a1ac42fbd4cd9c89dc9a988228d8a2639a58e6c
         dest: gradle/wrapper
         dest-filename: gradle-bin.zip
         x-checker-data:
