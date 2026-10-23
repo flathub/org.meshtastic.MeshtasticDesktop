@@ -67,8 +67,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meshtastic/Meshtastic-Android.git
-        tag: v2.8.2
-        commit: 616592901c0595c1cd1a0184a07e63743c846e55
+        tag: v2.8.3
+        commit: 105d541a2e068cc8abfb4f2d31bc4e5636d922ce
         x-checker-data:
           is-main-source: true
           type: json
