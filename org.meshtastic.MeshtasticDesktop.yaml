@@ -34,11 +34,25 @@ modules:
         sha512: 4680c1d459208f4017feff141be3d710733bd1225b6f61bc628937141857f00f92734aaea7567effae920c811243de03cfb91acd9b6fc4811897d892ae21fdad
         only-arches:
           - x86_64
+        x-checker-data:
+          <<: &jbr-checker
+            type: json
+            url: https://api.github.com/repos/JetBrains/JetBrainsRuntime/releases
+            # JBR publishes several build lines in parallel, so /releases/latest is unreliable; pick the highest 25.x version+build
+            tag-query: '[.[] | select(.prerelease | not) | select(.tag_name | test("^jbr-release-25[.][0-9.]+b[0-9.]+$"))] | max_by(.tag_name | capture("^jbr-release-(?<v>[0-9.]+)b(?<b>[0-9.]+)$") | [(.v, .b) | split(".") | map(tonumber)]) | .tag_name'
+            timestamp-query: '.[] | select(.tag_name == $tag) | .published_at'
+            version-query: '$tag | sub("^jbr-release-"; "")'
+          url-query: |-
+            .[] | select(.tag_name == $tag) | .body | [scan("https://cache-redirector[.]jetbrains[.]com/intellij-jbr/jbr_jcef-[0-9.]+-linux-x64-b[0-9.]+[.]tar[.]gz")] | first
       - type: file
         url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b610.67.tar.gz
         sha512: d3d8fb6827906393d73ec06fc29a2e4710ac79576849ee12a7c40429249e1cb6cebae219197947e297b01179c0576ab7e6e09f0578c4ba66558a6cbdb44dd2b2
         only-arches:
           - aarch64
+        x-checker-data:
+          <<: *jbr-checker
+          url-query: |-
+            .[] | select(.tag_name == $tag) | .body | [scan("https://cache-redirector[.]jetbrains[.]com/intellij-jbr/jbr_jcef-[0-9.]+-linux-aarch64-b[0-9.]+[.]tar[.]gz")] | first
 
   - name: meshtastic-desktop
     buildsystem: simple
