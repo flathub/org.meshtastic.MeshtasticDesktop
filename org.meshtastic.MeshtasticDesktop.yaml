@@ -30,8 +30,8 @@ modules:
       - tar xzf jbr_jcef-*.tar.gz -C /app/jre --strip-components=1
     sources:
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b610.67.tar.gz
-        sha512: 4680c1d459208f4017feff141be3d710733bd1225b6f61bc628937141857f00f92734aaea7567effae920c811243de03cfb91acd9b6fc4811897d892ae21fdad
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b635.78.tar.gz
+        sha512: 8a24a61a1bdddacf8be598367ad9ff75116e71085d3621629b569184cdf1e4b785c3b2c5b6b8a756056072029ad0816bf1423ea9ab2ec4eaf3a0da24f4dfc329
         only-arches:
           - x86_64
         x-checker-data:
@@ -39,14 +39,16 @@ modules:
             type: json
             url: https://api.github.com/repos/JetBrains/JetBrainsRuntime/releases
             # JBR publishes several build lines in parallel, so /releases/latest is unreliable; pick the highest 25.x version+build
-            tag-query: '[.[] | select(.prerelease | not) | select(.tag_name | test("^jbr-release-25[.][0-9.]+b[0-9.]+$"))] | max_by(.tag_name | capture("^jbr-release-(?<v>[0-9.]+)b(?<b>[0-9.]+)$") | [(.v, .b) | split(".") | map(tonumber)]) | .tag_name'
-            timestamp-query: '.[] | select(.tag_name == $tag) | .published_at'
-            version-query: '$tag | sub("^jbr-release-"; "")'
+            tag-query: '[.[] | select(.prerelease | not) | select(.tag_name | test("^jbr-release-25[.][0-9.]+b[0-9.]+$"))]
+              | max_by(.tag_name | capture("^jbr-release-(?<v>[0-9.]+)b(?<b>[0-9.]+)$")
+              | [(.v, .b) | split(".") | map(tonumber)]) | .tag_name'
+            timestamp-query: .[] | select(.tag_name == $tag) | .published_at
+            version-query: $tag | sub("^jbr-release-"; "")
           url-query: |-
             .[] | select(.tag_name == $tag) | .body | [scan("https://cache-redirector[.]jetbrains[.]com/intellij-jbr/jbr_jcef-[0-9.]+-linux-x64-b[0-9.]+[.]tar[.]gz")] | first
       - type: file
-        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b610.67.tar.gz
-        sha512: d3d8fb6827906393d73ec06fc29a2e4710ac79576849ee12a7c40429249e1cb6cebae219197947e297b01179c0576ab7e6e09f0578c4ba66558a6cbdb44dd2b2
+        url: https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b635.78.tar.gz
+        sha512: b3325f9dabb994162d6475a7f42622c94fc35503b6bd4b67fb9fd74210c5e1acf3285d31053d608b0f3b4e2474b79649a518ef6c5273ccff06b0c095f58673ac
         only-arches:
           - aarch64
         x-checker-data:
@@ -81,8 +83,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meshtastic/Meshtastic-Android.git
-        tag: v2.8.2
-        commit: 616592901c0595c1cd1a0184a07e63743c846e55
+        tag: v2.8.3
+        commit: 105d541a2e068cc8abfb4f2d31bc4e5636d922ce
         x-checker-data:
           is-main-source: true
           type: json
@@ -91,8 +93,8 @@ modules:
           tag-query: .tag_name
           version-query: $tag | sub("^v"; "")
       - type: file
-        url: https://services.gradle.org/distributions/gradle-9.8.0-bin.zip
-        sha256: bafd5ce9cfaea0fbccfdc8439a1ac42fbd4cd9c89dc9a988228d8a2639a58e6c
+        url: https://services.gradle.org/distributions/gradle-9.8.2-bin.zip
+        sha256: 21bd5da2de49b642904077f38c0efdc7778e92b3ed0889392dca61b97e389607
         dest: gradle/wrapper
         dest-filename: gradle-bin.zip
         x-checker-data:
