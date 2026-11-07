@@ -30,9 +30,9 @@ modules:
       - tar xzf jbr_jcef-*.tar.gz -C /app/jre --strip-components=1
     sources:
       - type: file
-        url: 
+        url: |-
           https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b635.79.tar.gz
-        sha512: 
+        sha512: |-
           b85de554ec25d6e87b306ad6eb6027e705049d3e6b2264da2b7778276c971f926d1b0a1064197a363beea43f51cf70e247ae74d4c9b481f628e35306dbaf48b4
         only-arches:
           - x86_64
@@ -49,9 +49,9 @@ modules:
           url-query: |-
             .[] | select(.tag_name == $tag) | .body | [scan("https://cache-redirector[.]jetbrains[.]com/intellij-jbr/jbr_jcef-[0-9.]+-linux-x64-b[0-9.]+[.]tar[.]gz")] | first
       - type: file
-        url: 
+        url: |-
           https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b635.79.tar.gz
-        sha512: 
+        sha512: |-
           da337b8554517189af6ca70ecbab40e63932b41bef84282f88d62fb0db1190d4570b152116f8d46ad178642cb84abc1628ff93123fca365b28b24ee4c4b6be12
         only-arches:
           - aarch64
@@ -87,8 +87,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/meshtastic/Meshtastic-Android.git
-        tag: v2.8.3
-        commit: 105d541a2e068cc8abfb4f2d31bc4e5636d922ce
+        tag: v2.8.4
+        commit: 927b38549110091fd7051daa24cc77150fd45849
         # x-checker-data:
         #   is-main-source: true
         #   type: json
@@ -97,8 +97,8 @@ modules:
         #   tag-query: .tag_name
         #   version-query: $tag | sub("^v"; "")
       - type: file
-        url: https://services.gradle.org/distributions/gradle-9.8.1-bin.zip
-        sha256: dce76f55f8e251a3a1f130eb120f30b3d271de2b76c9b0729d316b5a1b6dc01f
+        url: https://services.gradle.org/distributions/gradle-9.9.0-rc-1-bin.zip
+        sha256: ef02c92a61020a0e4e0cfe2c8d6e00235538e0109e50364dd40f2065a267add3
         dest: gradle/wrapper
         dest-filename: gradle-bin.zip
         # x-checker-data:
