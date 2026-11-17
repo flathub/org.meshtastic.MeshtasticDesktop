@@ -31,9 +31,9 @@ modules:
     sources:
       - type: file
         url: |-
-          https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-x64-b635.79.tar.gz
+          https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.5.0.3-linux-x64-b700.17.tar.gz
         sha512: |-
-          b85de554ec25d6e87b306ad6eb6027e705049d3e6b2264da2b7778276c971f926d1b0a1064197a363beea43f51cf70e247ae74d4c9b481f628e35306dbaf48b4
+          872831a0a6adcb56a511dbff195d08769d624189056add5dbda769c0caf84a233226f5601e4357a059e22f710d587ea11fbc93021c1c6b148b180bd3fc3ec285
         only-arches:
           - x86_64
         x-checker-data:
@@ -50,9 +50,9 @@ modules:
             .[] | select(.tag_name == $tag) | .body | [scan("https://cache-redirector[.]jetbrains[.]com/intellij-jbr/jbr_jcef-[0-9.]+-linux-x64-b[0-9.]+[.]tar[.]gz")] | first
       - type: file
         url: |-
-          https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.4.1-linux-aarch64-b635.79.tar.gz
+          https://cache-redirector.jetbrains.com/intellij-jbr/jbr_jcef-25.0.5.0.3-linux-aarch64-b700.17.tar.gz
         sha512: |-
-          da337b8554517189af6ca70ecbab40e63932b41bef84282f88d62fb0db1190d4570b152116f8d46ad178642cb84abc1628ff93123fca365b28b24ee4c4b6be12
+          ebdbb5dfa2b37c4266da0cb901818458a9aa806e2415fa83da1bbf909fe85652a87dad265fa3e9946481b5f9fbde7db17f3965701eecf44a3c2aa8b4c6259418
         only-arches:
           - aarch64
         x-checker-data:
